@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>🐹 Critter Bonk 🐰 — Whack-a-Mole Arcade</title>
+  <meta name="description" content="Bonk the critters. Chase the high score! A polished 30-second casual Whack-a-Mole arcade game set in a Twilight Garden.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Background Twinkling Stars Canvas -->
+  <canvas id="starsCanvas" aria-hidden="true"></canvas>
+
+  <div class="game-container" id="gameContainer">
+    
+    <!-- Header -->
+    <header class="game-header">
+      <div class="title-container">
+        <h1 class="game-title">🐹 Critter Bonk 🐰</h1>
+      </div>
+      <p class="game-subtitle">Bonk the critters. Chase the high score!</p>
+      
+      <div class="top-bar-controls">
+        <button id="soundToggleBtn" class="icon-btn" aria-label="Toggle game audio" title="Toggle Sound">
+          <span id="soundIcon">🔊</span>
+          <span id="soundLabel">Sound ON</span>
+        </button>
+        <button id="pauseBtn" class="icon-btn" aria-label="Pause game" title="Pause Game (P or Esc)" style="display: none;">
+          <span>⏸️</span>
+          <span>Pause</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Heads-Up Display (HUD) -->
+    <section class="game-hud" aria-label="Game Status Bar">
+      <div class="hud-grid">
+        <div class="hud-item">
+          <span class="hud-label">Score</span>
+          <span id="scoreDisplay" class="hud-value highlight-gold">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Best</span>
+          <span id="bestScoreDisplay" class="hud-value">0</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Time</span>
+          <span id="timeDisplay" class="hud-value">30s</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Speed</span>
+          <span id="speedBadge" class="speed-badge">EASY</span>
+        </div>
+      </div>
+      
+      <!-- 30-Second Progress Bar -->
+      <div class="progress-container" aria-label="Remaining time progress">
+        <div id="progressBar" class="progress-bar" style="width: 100%;"></div>
+      </div>
+    </section>
+
+    <!-- Main Playfield -->
+    <main class="playfield-wrapper" id="playfieldWrapper">
+      
+      <!-- 3x3 Grid of 9 Holes -->
+      <div class="grid-container" id="holeGrid" role="region" aria-label="Critter Holes Grid">
+        
+        <!-- Holes 0 to 8 -->
+        <div class="hole-slot" id="hole-0" data-index="0" role="button" tabindex="0" aria-label="Hole 1">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-0" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-1" data-index="1" role="button" tabindex="0" aria-label="Hole 2">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-1" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-2" data-index="2" role="button" tabindex="0" aria-label="Hole 3">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-2" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-3" data-index="3" role="button" tabindex="0" aria-label="Hole 4">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-3" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-4" data-index="4" role="button" tabindex="0" aria-label="Hole 5">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-4" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-5" data-index="5" role="button" tabindex="0" aria-label="Hole 6">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-5" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-6" data-index="6" role="button" tabindex="0" aria-label="Hole 7">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-6" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-7" data-index="7" role="button" tabindex="0" aria-label="Hole 8">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-7" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+        <div class="hole-slot" id="hole-8" data-index="8" role="button" tabindex="0" aria-label="Hole 9">
+          <div class="hole-mound"></div>
+          <div class="burrow-mask">
+            <div class="critter" id="critter-8" aria-hidden="true"></div>
+          </div>
+          <div class="hole-lip"></div>
+        </div>
+
+      </div>
+
+      <!-- Effects Canvases & Floating Score Layer -->
+      <canvas id="effectsCanvas" aria-hidden="true"></canvas>
+      <div id="floatingTextContainer" class="floating-text-container" aria-hidden="true"></div>
+
+      <!-- Modal Screen: Start Menu -->
+      <div class="overlay-screen" id="startScreen" role="dialog" aria-modal="true" aria-labelledby="startTitle">
+        <div class="modal-card">
+          <h2 id="startTitle" class="modal-title">Twilight Garden</h2>
+          <div class="critters-showcase" aria-label="Game Critters">🐹 🐻 🐸 🐵 🐰 🦊</div>
+          <p class="modal-desc">
+            Bonk the critters as they peek from their burrows!<br>
+            You have <strong>30 seconds</strong>. Score increases speed.
+          </p>
+          <button id="startBtn" class="btn-primary" aria-label="Start Game">Start Bonking!</button>
+        </div>
+      </div>
+
+      <!-- Modal Screen: Pause Overlay -->
+      <div class="overlay-screen hidden" id="pauseScreen" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+        <div class="modal-card">
+          <h2 id="pauseTitle" class="modal-title">Game Paused</h2>
+          <p class="modal-desc">Take a breather. The critters are waiting.</p>
+          <button id="resumeBtn" class="btn-primary" aria-label="Resume Game">Resume</button>
+          <button id="restartBtn" class="btn-secondary" aria-label="Restart Game">Restart</button>
+        </div>
+      </div>
+
+      <!-- Modal Screen: Game Over -->
+      <div class="overlay-screen hidden" id="gameOverScreen" role="dialog" aria-modal="true" aria-labelledby="gameOverTitle">
+        <div class="modal-card">
+          <div id="highScoreBadge" class="high-score-badge hidden">🏆 NEW HIGH SCORE!</div>
+          <h2 id="gameOverTitle" class="modal-title">Game Over</h2>
+          
+          <div class="stats-summary">
+            <div class="stat-box">
+              <div class="stat-label">Final Score</div>
+              <div id="finalScoreDisplay" class="stat-num highlight-gold">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Total Hits</div>
+              <div id="totalHitsDisplay" class="stat-num">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Hits / Min</div>
+              <div id="hpmDisplay" class="stat-num">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Best Score</div>
+              <div id="summaryBestScoreDisplay" class="stat-num">0</div>
+            </div>
+          </div>
+
+          <button id="playAgainBtn" class="btn-primary" aria-label="Play Again">Play Again</button>
+        </div>
+      </div>
+
+      <!-- Confetti Canvas -->
+      <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+    </main>
+  </div>
+
+  <!-- Main JavaScript Application Bootstrap (ES Module) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# CRITTER BONK Dependencies
+# This project uses Python's standard library (http.server, socketserver, os, sys, etc.).
+# No external third-party Python dependencies are required.
+# Run with standard Python 3.8+:
+#   python main.py

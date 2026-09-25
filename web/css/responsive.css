@@ -1,0 +1,101 @@
+/* ==========================================================================
+   CRITTER BONK — RESPONSIVE & MOBILE ADAPTATION
+   ========================================================================== */
+
+/* Small Tablets and Mobile Landscapes (< 640px) */
+@media (max-width: 640px) {
+  .game-container {
+    padding: 0.75rem;
+    min-height: 100dvh;
+  }
+
+  .game-title {
+    font-size: 1.85rem;
+  }
+
+  .game-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .hud-value {
+    font-size: 1.15rem;
+  }
+
+  .hud-label {
+    font-size: 0.6rem;
+  }
+
+  .playfield-wrapper {
+    padding: 0.85rem;
+    border-radius: 1.25rem;
+  }
+
+  .grid-container {
+    gap: 0.65rem;
+    max-width: 360px;
+  }
+
+  .critter {
+    font-size: 2.6rem;
+  }
+
+  .icon-btn {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.78rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-primary {
+    min-height: 48px;
+    font-size: 1.05rem;
+  }
+
+  .btn-secondary {
+    min-height: 44px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Compact Mobile Devices (< 380px) */
+@media (max-width: 380px) {
+  .game-title {
+    font-size: 1.6rem;
+  }
+
+  .grid-container {
+    gap: 0.5rem;
+    max-width: 310px;
+  }
+
+  .critter {
+    font-size: 2.2rem;
+  }
+
+  .hud-grid {
+    gap: 0.35rem;
+  }
+
+  .hud-value {
+    font-size: 1.05rem;
+  }
+
+  .stats-summary {
+    gap: 0.5rem;
+  }
+
+  .stat-box .stat-num {
+    font-size: 1.15rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .hole-slot {
+    touch-action: manipulation;
+  }
+
+  .icon-btn, .btn-primary, .btn-secondary {
+    touch-action: manipulation;
+  }
+}
